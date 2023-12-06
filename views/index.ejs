@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>掲示板</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                background-color: #333;
+                color: #fff;
+                padding: 1em;
+                text-align: center;
+                position: relative;
+            }
+
+            h1 {
+                margin-bottom: 0;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 1em;
+            }
+
+            .thread {
+                background-color: #fff;
+                margin: 0.5em 0;
+                padding: 1em;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            a {
+                text-decoration: none;
+                color: #333;
+                font-weight: bold;
+            }
+
+            a:hover {
+                color: #555;
+            }
+
+            .new-thread-btn,
+            .reply-link,
+            .like-link,
+            .read-all-link {
+                display: block;
+                margin-top: 1em;
+                padding: 0.5em 1em;
+                border-radius: 5px;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .new-thread-btn {
+                background-color: #4caf50;
+                color: #fff;
+            }
+
+            .new-thread-btn:hover {
+                background-color: #45a049;
+            }
+
+            .reply-link,
+            .like-link,
+            .read-all-link {
+                background-color: #2196F3;
+                color: #fff;
+            }
+
+            .reply-link:hover,
+            .like-link:hover,
+            .read-all-link:hover {
+                background-color: #0b7dda;
+            }
+
+            .hamburger-menu {
+        cursor: pointer;
+        position: absolute;
+        top: 1em;
+        left: 1em;
+        z-index: 1000;
+        display: block;
+        font-size: 24px; 
+    }
+
+            .menu-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .menu-list li {
+                margin: 20px;
+            }
+
+            .menu-list a {
+                text-decoration: none;
+                color: #fff;
+                font-size: 20px;
+            }
+
+            .menu-list a:hover {
+                color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>掲示板</h1>
+            <div class="hamburger-menu" onclick="toggleMenu()"> ☰ </div>
+        </header>
+        <ul class="menu-list">
+            <li><a href="#">ようこそ ゲストさん</a></li>
+            <li><a href="#">新規スレッドを書く</a></li>
+            <li><a href="/login">ログイン</a></li>
+            <li><a href="/new">新規ユーザー登録</a></li>
+            <li><a href="#">掲示板検索</a></li>
+        </ul>
+        <div class="container">
+            <% for (const thread of threads) { %>
+                <div class="thread">
+                    <h2><%= thread.title %></h2>
+                    <p class="post-info">
+                    <%= thread.id %> 名前:<%= thread.name %> : ユーザー名:<%= thread.userName %> : <%= thread.created_at %>
+                </p>
+                    <p><%= thread.content %></p>
+                    <a href="/edit/<%= thread.id %>">編集ページへ遷移</a>
+                    <a class="reply-link" href="/reply/<%= thread.id %>">書き込む</a>
+                    <a class="like-link" href="/like/<%= thread.id %>">お気に入り</a>
+                    <a class="read-all-link" href="/read-all/<%= thread.id %>">全部読む</a>
+                </div>
+                <% } %>
+                    <a class="new-thread-btn" href="/new-thread">新規スレッド作成</a>
+        </div>
+        <script>
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                const menuList = document.querySelector('.menu-list');
+                isMenuOpen = !isMenuOpen;
+                menuList.style.transform = isMenuOpen ? 'translateX(0%)' : 'translateX(-100%)';
+            }
+
+            document.addEventListener('click', (event) => {
+                const menuList = document.querySelector('.menu-list');
+                const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+                if (!hamburgerMenu.contains(event.target) && !menuList.contains(event.target)) {
+                    isMenuOpen = false;
+                    menuList.style.transform = 'translateX(-100%)';
+                }
+            });
+
+            document.querySelectorAll('.menu-list a').forEach(item => {
+                item.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    const menuList = document.querySelector('.menu-list');
+                    menuList.style.transform = 'translateX(-100%)';
+                });
+            });
+        </script>
+    </body>
+</html>

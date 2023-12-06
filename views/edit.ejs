@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>User Edit</title>
+</head>
+<body>
+    <header>
+        <h1>新規スレッド作成</h1>
+    </header>
+    <div class="container">
+        <form action="/create-thread" method="post">
+            <label for="threadTitle">スレッドタイトル:</label>
+            <input type="text" id="threadTitle" name="threadTitle" required>
+            <label for="username">名前:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="content">コンテンツ内容:</label>
+            <textarea id="content" name="content" rows="4" required></textarea>
+            <button type="submit">作成</button>
+        </form>
+    </div>
+</body>
+</html>
