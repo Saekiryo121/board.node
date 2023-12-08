@@ -59,6 +59,11 @@ app.get('/new', (req, res) => {
   res.render('new');
 });
 
+app.get('/register-success', (req, res) => {
+  const username = req.query.username;
+  res.render('newuser-success', { username });
+});
+
 app.listen(port, () =>
   console.log(`Example app listening on port ${port}!`)
 );

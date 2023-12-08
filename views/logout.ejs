@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新規ユーザー登録</title>
+    <title>ログアウト</title>
     <style>
-
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
@@ -13,6 +12,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: 100vh;
             margin: 0;
         }
 
@@ -73,29 +73,21 @@
             color: #ddd;
         }
 
-        .registration-container {
+        .logout-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
-            margin-top: 150px;
+            text-align: center;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
+        .logout-message {
+            margin-bottom: 20px;
         }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
+        .return-button {
             background-color: #2196F3;
             color: #fff;
             padding: 10px;
@@ -104,7 +96,7 @@
             cursor: pointer;
         }
 
-        button:hover {
+        .return-button:hover {
             background-color: #0b7dda;
         }
     </style>
@@ -121,28 +113,14 @@
         <li><a href="/new">新規ユーザー登録</a></li>
         <li><a href="#">掲示板検索</a></li>
     </ul>
-    <div class="registration-container">
-        <h2>新規ユーザー登録</h2>
-        <form id="registration-form">
-            <label for="username">ユーザー名:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="email">メールアドレス:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">パスワード:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="button" onclick="submitForm()">新規登録</button>
-        </form>
+    <div class="logout-container">
+        <h2 class="logout-message">ログアウトしました。</h2>
+        <button class="return-button" onclick="returnToTop()">掲示板トップへ戻る</button>
     </div>
 
     <script>
-        function submitForm() {
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            alert(`ユーザー名: ${username}, メールアドレス: ${email}, パスワード: ${password}`);
+        function returnToTop() {
+            window.location.href = '/';
         }
 
         let isMenuOpen = false;

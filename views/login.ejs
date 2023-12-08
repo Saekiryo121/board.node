@@ -11,14 +11,72 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        .hamburger-menu {
+            cursor: pointer;
+            position: absolute;
+            top: 1em;
+            left: 1em;
+            z-index: 1000;
+            display: block;
+            font-size: 24px; 
+        }
+
+        .menu-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 999;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-list li {
+            margin: 20px;
+        }
+
+        .menu-list a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .menu-list a:hover {
+            color: #ddd;
         }
 
         .login-container {
             background-color: #fff;
             padding: 20px;
+            margin-top: 150px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
@@ -52,6 +110,17 @@
     </style>
 </head>
 <body>
+    <header>
+        <h1>掲示板</h1>
+        <div class="hamburger-menu" onclick="toggleMenu()"> ☰ </div>
+    </header>
+    <ul class="menu-list">
+        <li><a href="#">ようこそ ゲストさん</a></li>
+        <li><a href="#">新規スレッドを書く</a></li>
+        <li><a href="/login">ログイン</a></li>
+        <li><a href="/new">新規ユーザー登録</a></li>
+        <li><a href="#">掲示板検索</a></li>
+    </ul>
     <div class="login-container">
         <h2>ログイン</h2>
         <form id="login-form">
@@ -71,6 +140,32 @@
             const password = document.getElementById('password').value;
             alert(`メールアドレス: ${email}, パスワード: ${password}`);
         }
+
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            const menuList = document.querySelector('.menu-list');
+            isMenuOpen = !isMenuOpen;
+            menuList.style.transform = isMenuOpen ? 'translateX(0%)' : 'translateX(-100%)';
+        }
+
+        document.addEventListener('click', (event) => {
+            const menuList = document.querySelector('.menu-list');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+            if (!hamburgerMenu.contains(event.target) && !menuList.contains(event.target)) {
+                isMenuOpen = false;
+                menuList.style.transform = 'translateX(-100%)';
+            }
+        });
+
+        document.querySelectorAll('.menu-list a').forEach(item => {
+            item.addEventListener('click', () => {
+                isMenuOpen = false;
+                const menuList = document.querySelector('.menu-list');
+                menuList.style.transform = 'translateX(-100%)';
+            });
+        });
     </script>
 </body>
 </html>
