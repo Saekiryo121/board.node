@@ -32,6 +32,45 @@ app.get("/new-thread", (req, res) => {
   res.render("new-thread");
 });
 
+app.get('/edit/:id', (req, res) => {
+  const threadId = req.params.id;
+
+  con.query('SELECT * FROM board WHERE id = ?', [threadId], (err, results) => {
+    if (err) {
+      console.error('MySQLクエリエラー: ', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      const thread = results[0];
+      if (!thread) {
+        res.status(404).send('Thread not found');
+      } else {
+        res.render('edit-thread', { thread });
+      }
+    }
+  });
+});
+
+app.post('/edit/:id', (req, res) => {
+  const threadId = req.params.id;
+  const newName = req.body.name;
+  const newUserName = req.body.userName;
+  const newContent = req.body.content;
+
+  con.query(
+    'UPDATE board SET name = ?, userName = ?, content = ? WHERE id = ?',
+    [newName, newUserName, newContent, threadId],
+    (err, results) => {
+      if (err) {
+        console.error('MySQLクエリエラー: ', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.redirect('/');
+      }
+    }
+  );
+});
+
+
 app.post("/create-thread", (req, res) => {
   const threadTitle = req.body.threadTitle;
   const content = req.body.content;

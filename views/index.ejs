@@ -147,7 +147,7 @@
                     <%= thread.id %> 名前:<%= thread.name %> : ユーザー名:<%= thread.userName %> : <%= thread.created_at %>
                 </p>
                     <p><%= thread.content %></p>
-                    <a href="/edit/<%= thread.id %>">編集ページへ遷移</a>
+                    <a href="/edit/<%= thread.id %>">編集</a>
                     <a class="reply-link" href="/reply/<%= thread.id %>">書き込む</a>
                     <a class="like-link" href="/like/<%= thread.id %>">お気に入り</a>
                     <a class="read-all-link" href="/read-all/<%= thread.id %>">全部読む</a>

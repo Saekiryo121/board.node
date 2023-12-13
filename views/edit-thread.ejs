@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Thread</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2196F3;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>掲示板</h1>
+    </header>
+    <ul class="menu-list">
+    </ul>
+    <div class="container">
+        <h2>Edit Thread</h2>
+        <form action="/edit/<%= thread.id %>" method="post">
+            <!-- 現在のスレッド情報を表示 -->
+            <label for="name">名前:</label>
+            <input type="text" id="name" name="name" value="<%= thread.name %>" required>
+
+            <label for="userName">ユーザー名:</label>
+            <input type="text" id="userName" name="userName" value="<%= thread.userName %>" required>
+
+            <label for="content">コンテンツ:</label>
+            <textarea id="content" name="content" required><%= thread.content %></textarea>
+
+            <button type="submit">更新</button>
+        </form>
+    </div>
+</body>
+</html>
