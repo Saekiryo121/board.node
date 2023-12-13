@@ -1,175 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新規ユーザー登録</title>
-    <style>
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-            position: relative;
-            width: 100%;
-        }
-
-        h1 {
-            margin-bottom: 0;
-        }
-
-        .hamburger-menu {
-            cursor: pointer;
-            position: absolute;
-            top: 1em;
-            left: 1em;
-            z-index: 1000;
-            display: block;
-            font-size: 24px; 
-        }
-
-        .menu-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            z-index: 999;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .menu-list li {
-            margin: 20px;
-        }
-
-        .menu-list a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 20px;
-        }
-
-        .menu-list a:hover {
-            color: #ddd;
-        }
-
-        .registration-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            margin-top: 150px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #2196F3;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0b7dda;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>掲示板</h1>
-        <div class="hamburger-menu" onclick="toggleMenu()"> ☰ </div>
-    </header>
-    <ul class="menu-list">
-        <li><a href="#">ようこそ ゲストさん</a></li>
-        <li><a href="#">新規スレッドを書く</a></li>
-        <li><a href="/login">ログイン</a></li>
-        <li><a href="/new">新規ユーザー登録</a></li>
-        <li><a href="#">掲示板検索</a></li>
-    </ul>
-    <div class="registration-container">
-        <h2>新規ユーザー登録</h2>
-        <form id="registration-form">
-            <label for="username">ユーザー名:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="email">メールアドレス:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">パスワード:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="button" onclick="submitForm()">新規登録</button>
-        </form>
-    </div>
-
-    <script>
-        function submitForm() {
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            alert(`ユーザー名: ${username}, メールアドレス: ${email}, パスワード: ${password}`);
-        }
-
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            const menuList = document.querySelector('.menu-list');
-            isMenuOpen = !isMenuOpen;
-            menuList.style.transform = isMenuOpen ? 'translateX(0%)' : 'translateX(-100%)';
-        }
-
-        document.addEventListener('click', (event) => {
-            const menuList = document.querySelector('.menu-list');
-            const hamburgerMenu = document.querySelector('.hamburger-menu');
-
-            if (!hamburgerMenu.contains(event.target) && !menuList.contains(event.target)) {
-                isMenuOpen = false;
-                menuList.style.transform = 'translateX(-100%)';
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>新規ユーザー登録</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
             }
-        });
 
-        document.querySelectorAll('.menu-list a').forEach(item => {
-            item.addEventListener('click', () => {
-                isMenuOpen = false;
+            header {
+                background-color: #333;
+                color: #fff;
+                padding: 1em;
+                text-align: center;
+                position: relative;
+                width: 100%;
+            }
+
+            h1 {
+                margin-bottom: 0;
+            }
+
+            .hamburger-menu {
+                cursor: pointer;
+                position: absolute;
+                top: 1em;
+                left: 1em;
+                z-index: 1000;
+                display: block;
+                font-size: 24px;
+            }
+
+            .menu-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .menu-list li {
+                margin: 20px;
+            }
+
+            .menu-list a {
+                text-decoration: none;
+                color: #fff;
+                font-size: 20px;
+            }
+
+            .menu-list a:hover {
+                color: #ddd;
+            }
+
+            .registration-container {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                max-width: 400px;
+                width: 100%;
+                margin-top: 150px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            input {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 16px;
+                box-sizing: border-box;
+            }
+
+            button {
+                background-color: #2196F3;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #0b7dda;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1 onclick="goToTop()">掲示板</h1>
+            <div class="hamburger-menu" onclick="toggleMenu()"> ☰ </div>
+        </header>
+        <ul class="menu-list">
+            <li><a href="#">ようこそ ゲストさん</a></li>
+            <li><a href="/new-thread">新規スレッドを書く</a></li>
+            <li><a href="/login">ログイン</a></li>
+            <li><a href="/new">新規ユーザー登録</a></li>
+            <li><a href="#">掲示板検索</a></li>
+        </ul>
+        <div class="registration-container">
+            <h2>新規ユーザー登録</h2>
+            <form id="registration-form">
+                <label for="username">ユーザー名:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="email">メールアドレス:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">パスワード:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="button" onclick="submitForm()">新規登録</button>
+            </form>
+        </div>
+        <script>
+            function submitForm() {
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                if (!username || !email || !password) {
+                    alert('ユーザー名、メールアドレス、パスワードは必須項目です。');
+                    return;
+                }
+                alert(`ユーザー名: ${username}, メールアドレス: ${email}, パスワード: ${password}`);
+            }
+
+            let isMenuOpen = false;
+
+            function toggleMenu() {
                 const menuList = document.querySelector('.menu-list');
-                menuList.style.transform = 'translateX(-100%)';
+                isMenuOpen = !isMenuOpen;
+                menuList.style.transform = isMenuOpen ? 'translateX(0%)' : 'translateX(-100%)';
+            }
+
+            document.addEventListener('click', (event) => {
+                const menuList = document.querySelector('.menu-list');
+                const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+                if (!hamburgerMenu.contains(event.target) && !menuList.contains(event.target)) {
+                    isMenuOpen = false;
+                    menuList.style.transform = 'translateX(-100%)';
+                }
             });
-        });
-    </script>
-</body>
+
+            document.querySelectorAll('.menu-list a').forEach(item => {
+                item.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    const menuList = document.querySelector('.menu-list');
+                    menuList.style.transform = 'translateX(-100%)';
+                });
+            });
+
+            function goToTop() {
+                window.location.href = '/';
+            }
+        </script>
+    </body>
 </html>

@@ -18,7 +18,14 @@ const con = mysql.createConnection({
 });
 
 app.get("/", (req, res) => {
-  con.query("SELECT * FROM board ORDER BY id DESC", (err, results) => {
+  const query = `
+    SELECT post.id as postId, post.title, post.time, board.*
+    FROM post
+    LEFT JOIN board ON post.id = board.threadId
+    ORDER BY post.id DESC;
+  `;
+
+  con.query(query, (err, results) => {
     if (err) {
       console.error('MySQLクエリエラー: ', err);
       res.status(500).send('Internal Server Error');
@@ -28,6 +35,7 @@ app.get("/", (req, res) => {
   });
 });
 
+
 app.get("/new-thread", (req, res) => {
   res.render("new-thread");
 });
@@ -36,17 +44,17 @@ app.get('/edit/:id', (req, res) => {
   const threadId = req.params.id;
 
   con.query('SELECT * FROM board WHERE id = ?', [threadId], (err, results) => {
-    if (err) {
-      console.error('MySQLクエリエラー: ', err);
-      res.status(500).send('Internal Server Error');
-    } else {
-      const thread = results[0];
-      if (!thread) {
-        res.status(404).send('Thread not found');
+      if (err) {
+          console.error('MySQLクエリエラー: ', err);
+          res.status(500).send('Internal Server Error');
       } else {
-        res.render('edit-thread', { thread });
+          const thread = results[0];
+          if (!thread) {
+              res.status(404).send('Thread not found');
+          } else {
+              res.render('edit-thread', { thread });
+          }
       }
-    }
   });
 });
 

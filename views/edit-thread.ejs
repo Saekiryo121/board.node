@@ -73,14 +73,13 @@
 </head>
 <body>
     <header>
-        <h1>掲示板</h1>
+        <h1 onclick="goToTop()">掲示板</h1>
     </header>
     <ul class="menu-list">
     </ul>
     <div class="container">
         <h2>Edit Thread</h2>
         <form action="/edit/<%= thread.id %>" method="post">
-            <!-- 現在のスレッド情報を表示 -->
             <label for="name">名前:</label>
             <input type="text" id="name" name="name" value="<%= thread.name %>" required>
 
@@ -93,5 +92,10 @@
             <button type="submit">更新</button>
         </form>
     </div>
+    <script>
+        function goToTop() {
+            window.location.href = '/';
+        }
+    </script>
 </body>
 </html>

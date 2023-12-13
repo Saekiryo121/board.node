@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログインページ</title>
+    <title>新規スレッド作成</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,9 +11,9 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
 
         header {
@@ -21,22 +21,62 @@
             color: #fff;
             padding: 1em;
             text-align: center;
-            position: relative;
             width: 100%;
+            position: relative;
         }
 
         h1 {
             margin-bottom: 0;
         }
 
-        .hamburger-menu {
-            cursor: pointer;
+        .menu-btn {
             position: absolute;
             top: 1em;
             left: 1em;
-            z-index: 1000;
-            display: block;
-            font-size: 24px; 
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
+            z-index: 1001;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2196F3;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0b7dda;
         }
 
         .menu-list {
@@ -72,47 +112,12 @@
         .menu-list a:hover {
             color: #ddd;
         }
-
-        .login-container {
-            background-color: #fff;
-            padding: 20px;
-            margin-top: 150px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #2196F3;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0b7dda;
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1 onclick="goToTop()">掲示板</h1>
-        <div class="hamburger-menu" onclick="toggleMenu()"> ☰ </div>
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+        <h1 onclick="goToTop()">新規スレッド作成</h1>
     </header>
     <ul class="menu-list">
         <li><a href="#">ようこそ ゲストさん</a></li>
@@ -121,26 +126,18 @@
         <li><a href="/new">新規ユーザー登録</a></li>
         <li><a href="#">掲示板検索</a></li>
     </ul>
-    <div class="login-container">
-        <h2>ログイン</h2>
-        <form id="login-form">
-            <label for="email">メールアドレス:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">パスワード:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="button" onclick="submitForm()">ログイン</button>
+    <div class="container">
+        <form action="/create-thread" method="post">
+            <label for="threadTitle">スレッドタイトル:</label>
+            <input type="text" id="threadTitle" name="threadTitle" required>
+            <label for="username">名前:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="content">コンテンツ内容:</label>
+            <textarea id="content" name="content" rows="4" required></textarea>
+            <button type="submit">作成</button>
         </form>
     </div>
-
     <script>
-        function submitForm() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            alert(`メールアドレス: ${email}, パスワード: ${password}`);
-        }
-
         let isMenuOpen = false;
 
         function toggleMenu() {
@@ -151,9 +148,9 @@
 
         document.addEventListener('click', (event) => {
             const menuList = document.querySelector('.menu-list');
-            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const menuBtn = document.querySelector('.menu-btn');
 
-            if (!hamburgerMenu.contains(event.target) && !menuList.contains(event.target)) {
+            if (!menuBtn.contains(event.target) && !menuList.contains(event.target)) {
                 isMenuOpen = false;
                 menuList.style.transform = 'translateX(-100%)';
             }
